@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        // enalbe strict mode: have null safety,..
+        "strict": true,
+        // create es module syntax: basicly import/export instad of require/module.exports
+        // (electron expect to use es modules in the newest version)
+        "target": "ESNext",
+        // tell typescript that the code will be written in es module syntax
+        "module": "NodeNext",
+        // where to put generated js
+        "outDir": "../../dist-electron",
+        // ignore errors from dependencies
+        "skipLibCheck": true,
+    }
+}
