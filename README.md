@@ -1,50 +1,76 @@
-# React + TypeScript + Vite
+# Electron, Vite, React, TypeScript Quickstart
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+a quickstart template for creating applications using Electron, Vite, React, and TypeScript
 
-Currently, two official plugins are available:
+## Project Structure
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```
+.gitignore
+electron-builder.json
+eslint.config.js
+index.html
+package.json
+README.md
+src/
+    electron/
+        main.ts
+        tsconfig.json
+        util.ts
+    ui/
+        App.css
+        App.tsx
+        assets/
+        index.css
+        main.tsx
+        vite-env.d.ts
+tsconfig.app.json
+tsconfig.json
+tsconfig.node.json
+vite.config.ts
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## Getting Started
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+### Prerequisites
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+- Node.js (v14 or higher)
+- npm (v6 or higher)
+
+### Installation
+
+1. Clone the repository:
+
+    ```sh
+    git clone https://github.com/SnakeTuan/electron-react-typescript-quick-start.git
+    cd electron-vite-react-ts-quickstart
+    ```
+
+2. Install the dependencies:
+
+    ```sh
+    npm i
+    ```
+
+### Start the project
+
+#### Development Mode
+
+To run the app in development mode with hot module replacement:
+
+```sh
+npm run dev
 ```
+
+This will start both the Vite development server and the Electron app. So you can see the changes while coding, you don't have to rebuild the app
+
+### Building the App
+
+To build the app for distribution:
+
+```sh
+npm run dist:mac   # For macOS
+npm run dist:win   # For Windows
+npm run dist:linux # For Linux
+```
+
+This will create the distribution packages in the `dist` directory
