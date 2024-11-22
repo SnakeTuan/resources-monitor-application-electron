@@ -1,5 +1,6 @@
 {
     "compilerOptions": {
+        "types": ["../../types"],
         // enalbe strict mode: have null safety,..
         "strict": true,
         // create es module syntax: basicly import/export instad of require/module.exports

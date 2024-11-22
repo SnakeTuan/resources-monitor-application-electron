@@ -5,7 +5,6 @@ import './App.css'
 function App() {
 
   useEffect(() => {
-    // @ts-ignore
     window.electron.subscribeStats((stats)=> {
       return console.log(stats);
     })
