@@ -1,8 +1,8 @@
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, ipcMain } from 'electron';
 import path from 'path';
 import { isDev } from './util.js';
 
-import { polling_resources } from './resources-monitor.js';
+import { polling_resources, get_static_data } from './resources-monitor.js';
 
 function get_preload_path(){
     return path.join(app.getAppPath(), isDev() ? '.' : '..', '/dist-electron/preload.cjs');
@@ -22,5 +22,9 @@ app.on('ready', () => {
         mainWindow.loadFile(app_path);
     }
 
-    polling_resources();
+    polling_resources(mainWindow);
+
+    ipcMain.handle('get-stats', () => {
+        return get_static_data();
+    });
 });
