@@ -2,7 +2,8 @@
 import osUtils from 'os-utils';
 import { execSync } from 'child_process';
 import os from 'os';
-import { BrowserWindow } from 'electron';
+import { BrowserWindow, webContents } from 'electron';
+import { ipc_web_contents_send } from './util.js';
 
 
 // Polling interval in milliseconds
@@ -16,11 +17,19 @@ export function polling_resources(mainWindow: BrowserWindow){
         // console.log('CPU Usage: ', cpuUsage);
         // console.log('RAM Usage: ', ramUsage);
         // console.log('Storage Usage: ', usedStorage);
-        mainWindow.webContents.send('resource-usage', { cpuUsage, ramUsage, usedStorage });
+        ipc_web_contents_send(
+            'getStatistic',
+            mainWindow.webContents,
+            {
+                cpuUsage,
+                ramUsage,
+                usedStorage,
+            }
+        )
     }, POLLING_INTERVAL);
 }
 
-function get_cpu_usage(){
+function get_cpu_usage(): Promise<number> {
     return new Promise((resolve) => {
         osUtils.cpuUsage((resolve));
     })
@@ -57,8 +66,8 @@ export function get_static_data(){
     const totalStorage = total;
     const cpuModel = os.cpus()[0].model;
     const totalMemory = Math.floor(osUtils.totalmem() / 1024);
-    console.log('Total Storage: ', totalStorage);
-    console.log('CPU Model: ', cpuModel);
-    console.log('Total Memory: ', totalMemory);
+    // console.log('Total Storage: ', totalStorage);
+    // console.log('CPU Model: ', cpuModel);
+    // console.log('Total Memory: ', totalMemory);
     return { totalStorage, cpuModel, totalMemory };
 }

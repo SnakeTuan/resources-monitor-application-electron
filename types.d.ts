@@ -7,8 +7,14 @@ type Statistic = {
 
 type StaticData = {
     totalStorage: number,
-    cpuModel: number,
+    cpuModel: string,
     totalMemory: number,
+}
+
+// create a mapping of the events for type checking the ipc
+type EvenPayloadMapping = {
+    getStatistic: Statistic,
+    getStaticData: StaticData,
 }
 
 // typescript: if defined a interface that already exists, it will add the new properties to the existing interface

@@ -1,6 +1,6 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
 import path from 'path';
-import { isDev } from './util.js';
+import { ipc_main_handle, isDev } from './util.js';
 
 import { polling_resources, get_static_data } from './resources-monitor.js';
 
@@ -24,7 +24,8 @@ app.on('ready', () => {
 
     polling_resources(mainWindow);
 
-    ipcMain.handle('get-stats', () => {
+    ipc_main_handle('getStaticData', () => {
         return get_static_data();
     });
 });
+
