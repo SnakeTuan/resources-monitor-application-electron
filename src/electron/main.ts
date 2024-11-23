@@ -8,6 +8,11 @@ function get_preload_path(){
     return path.join(app.getAppPath(), isDev() ? '.' : '..', '/dist-electron/preload.cjs');
 }
 
+export function get_ui_path(){
+    const app_path = path.join(app.getAppPath(), '/dist-react/index.html');
+    return app_path;
+}
+
 app.on('ready', () => {
     const mainWindow = new BrowserWindow({
         webPreferences: {
@@ -18,8 +23,7 @@ app.on('ready', () => {
     if (isDev()) {
         mainWindow.loadURL('http://localhost:1234');
     } else {
-        const app_path = path.join(app.getAppPath(), '/dist-react/index.html');
-        mainWindow.loadFile(app_path);
+        mainWindow.loadFile(get_ui_path());
     }
 
     polling_resources(mainWindow);
