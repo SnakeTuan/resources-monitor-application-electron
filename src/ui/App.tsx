@@ -5,9 +5,8 @@ import './App.css'
 function App() {
 
   useEffect(() => {
-    window.electron.subscribeStats((stats)=> {
-      return console.log(stats);
-    })
+    const unsub = window.electron.subscribeStats((stats)=> console.log(stats));
+    return unsub;
   }, [])
 
   const [count, setCount] = useState(0)

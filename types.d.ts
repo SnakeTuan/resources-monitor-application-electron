@@ -17,10 +17,12 @@ type EvenPayloadMapping = {
     getStaticData: StaticData,
 }
 
+type Unsrubscribe = () => void;
+
 // typescript: if defined a interface that already exists, it will add the new properties to the existing interface
 interface Window {
     electron: {
-        subscribeStats: (callback: (stats: Statistic) => void) => void,
+        subscribeStats: (callback: (stats: Statistic) => void) => Unsrubscribe,
         getStats: () => Promise<StaticData>,
     }
 }

@@ -2,8 +2,8 @@ const electron = require('electron');
 
 // contextBridege can be used to bridge data between the main and renderer processes
 electron.contextBridge.exposeInMainWorld("electron", {
-    subscribeStats: (callback: (stats: any) => void) => {
-        ipc_on('getStatistic', (stats) => {
+    subscribeStats: (callback) => {
+        return ipc_on('getStatistic', (stats) => {
             callback(stats);
         });
     },
@@ -22,7 +22,7 @@ function ipc_on <key extends keyof EvenPayloadMapping> (
     key: key,
     callback: (payload: EvenPayloadMapping[key]) => void,
 ) {
-    electron.ipcRenderer.on(key, (_, payload) => {
-        callback(payload);
-    });
+    const call_back = (_: Electron.IpcRendererEvent, payload: any) => callback(payload);
+    electron.ipcRenderer.on(key, call_back);
+    return () => electron.ipcRenderer.off(key, call_back);
 }
